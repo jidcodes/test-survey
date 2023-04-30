@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+label {
+  @apply font-medium text-sm;
+}
+
+input {
+  @apply block border border-gray-600 p-1 mb-2.5 w-full;
+}
+
+textarea {
+  @apply block border border-gray-600 p-1 mb-2.5 w-full h-20;
+}
+
+.main-form {
+  @apply bg-gray-100 border-2 border-gray-600 py-8 px-12 lg:px-24 m-8 lg:my-8 md:mx-auto rounded-lg md:w-[40rem];
+}

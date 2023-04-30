@@ -4,6 +4,7 @@ import { BusinessForm } from "@/components/BusinessForm";
 import { HostingForm } from "@/components/HostingForm";
 import { ProjectForm } from "@/components/ProjectForm";
 import { useSurvey } from "@/hooks/useSurvey";
+import { useRouter } from "next/router";
 
 const INITIAL_DATA = {
   name: "",
@@ -38,27 +39,21 @@ function App() {
       <HostingForm {...data} updateFields={updateFields} />,
     ]);
 
+  const router = useRouter();
+
   const sendEmail = (e) => {
     e.preventDefault();
     if (!isLastStep) return next();
     console.log({ data });
+    router.push({ pathname: "/success", query: data });
   };
 
   return (
-    <div className="main-form">
-      <form
-        name="survey"
-        method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        action="/success/"
-        onSubmit={sendEmail}
-      >
+    <main className="main-form">
+      <div>
         <div className="block text-right">
           {currentStepIndex + 1} / {steps.length}
         </div>
-
-        <input name="bot-field" className="hidden" />
 
         {step}
 
@@ -79,14 +74,15 @@ function App() {
             </button>
           )}
           <button
+            onClick={sendEmail}
             type="submit"
             className="font-medium px-4 py-1 border-2 border-black"
           >
             {isLastStep ? "Finish" : "Next"}
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </main>
   );
 }
 

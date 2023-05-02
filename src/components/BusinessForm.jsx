@@ -7,14 +7,7 @@ export function BusinessForm({
   updateFields,
 }) {
   return (
-    <form
-      name="survey"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-    >
-      <input name="bot-field" className="hidden" />
-
+    <FormWrapper title="Business Details">
       <label htmlFor="business_name">Business/Brand Name</label>
       <input
         autoFocus
@@ -44,6 +37,6 @@ export function BusinessForm({
         value={businessDescription}
         onChange={(e) => updateFields({ businessDescription: e.target.value })}
       />
-    </form>
+    </FormWrapper>
   );
 }

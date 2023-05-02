@@ -2,14 +2,7 @@ import { FormWrapper } from "./FormWrapper";
 
 export function ClientForm({ name, phone, email, updateFields }) {
   return (
-    <form
-      name="survey"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-    >
-      <input name="bot-field" className="hidden" />
-
+    <FormWrapper title="Personal Details">
       <label htmlFor="fullname">Full name</label>
       <input
         autoFocus
@@ -37,6 +30,21 @@ export function ClientForm({ name, phone, email, updateFields }) {
         value={email}
         onChange={(e) => updateFields({ email: e.target.value })}
       />
-    </form>
+
+      <div className="flex gap-8 mt-8">
+        <div className="flex gap-2">
+          <input className="w-4" type="radio" />
+          <label className="mb-2.5 font-bold" htmlFor="">
+            Yes
+          </label>
+        </div>
+        <div className="flex gap-2">
+          <input className="w-4" type="radio" />
+          <label className="mb-2.5 font-bold" htmlFor="">
+            No
+          </label>
+        </div>
+      </div>
+    </FormWrapper>
   );
 }

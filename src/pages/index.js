@@ -5,6 +5,7 @@ import { HostingForm } from "@/components/HostingForm";
 import { ProjectForm } from "@/components/ProjectForm";
 import { useSurvey } from "@/hooks/useSurvey";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const INITIAL_DATA = {
   name: "",
@@ -41,16 +42,30 @@ function App() {
 
   const router = useRouter();
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     if (!isLastStep) return next();
     console.log({ data });
     router.push({ pathname: "/success", query: data });
+
+    //Send data over to server
+    const payload = data;
+    try {
+      const { data } = await axios({
+        url: "/api/contact",
+        method: "POST",
+        data: payload,
+      });
+
+      console.log("Response back: ", data);
+    } catch (err) {
+      console.log("error: ", err);
+    }
   };
 
   return (
     <main className="main-form">
-      <div>
+      <form onSubmit={sendEmail}>
         <div className="block text-right">
           {currentStepIndex + 1} / {steps.length}
         </div>
@@ -74,14 +89,13 @@ function App() {
             </button>
           )}
           <button
-            onClick={sendEmail}
             type="submit"
             className="font-medium px-4 py-1 border-2 border-black"
           >
             {isLastStep ? "Finish" : "Next"}
           </button>
         </div>
-      </div>
+      </form>
     </main>
   );
 }
